@@ -3,6 +3,7 @@ package dio.rafael.apirest.controller;
 import dio.rafael.apirest.dto.request.PersonDTO;
 import dio.rafael.apirest.dto.response.MessageResponseDTO;
 import dio.rafael.apirest.entity.Person;
+import dio.rafael.apirest.exception.PersonNotFoundException;
 import dio.rafael.apirest.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,8 +30,12 @@ public class PersonController {
     }
 
     @GetMapping
-
     public List<PersonDTO> listAll(){
         return personService.listAll();
+    }
+
+    @GetMapping("/{id}")
+    public PersonDTO findById(@PathVariable Long id) throws PersonNotFoundException {
+        return personService.findById(id);
     }
 }
